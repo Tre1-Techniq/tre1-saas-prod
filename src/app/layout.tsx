@@ -1,6 +1,8 @@
 import "~/styles/globals.css";
 
-import { GeistSans } from "geist/font/sans";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create T3 App",
@@ -8,14 +10,26 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
+function NavBar () {
+  return (
+    <nav className="flex items-center justify-between w-full border-b p-4 text-xl font-semibold">
+      <div>TRE1 LOGO</div>
+      <div>SIGN IN</div>
+    </nav>
+  )
+}
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
-      <body>{children}</body>
+    <html lang="en">
+      <body className={`${inter.className} flex flex-col gap-4`}>
+        <NavBar />
+        {children}
+      </body>
     </html>
   );
 }
