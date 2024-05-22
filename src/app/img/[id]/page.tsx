@@ -1,20 +1,13 @@
-import { getImage } from "~/server/db/queries";
+import { FullPageImageView } from "~/common/full-page-image-view";
 
-export default async function PhotoModal({
+export default function PhotoModal({
   params: { id: photoId },
 }: {
-  params: { id: string };
+  params: { id: number };
 }) {
-  const idAsNumber = Number(photoId);
-  if (Number.isNaN(idAsNumber)) throw new Error("Invalid photo id");
-
-  const image = await getImage(idAsNumber);
-
-  // const userInfo = await clerkClient.users.getUser(image.userId);
-
   return (
-    <div>
-      <img src={image.url} className="w-96" />
+    <div className="flex h-full min-h-0 w-full min-w-0 overflow-y-hidden">
+      <FullPageImageView id={photoId} />
     </div>
   );
 }
