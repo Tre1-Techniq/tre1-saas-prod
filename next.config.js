@@ -7,13 +7,13 @@ await import("./src/env.js");
 /** @type {import("next").NextConfig} */
 const coreConfig = {
   images: {
-      remotePatterns: [{ hostname: "utfs.io" }],
+    remotePatterns: [{ hostname: "utfs.io" }],
   },
   typescript: {
-      ignoreBuildErrors: true,
+    ignoreBuildErrors: true,
   },
   eslint: {
-      ignoreDuringBuilds: true,
+    ignoreDuringBuilds: true,
   },
 
   async rewrites() {
@@ -29,7 +29,6 @@ const coreConfig = {
     ];
   },
 };
-
 
 import { withSentryConfig } from "@sentry/nextjs";
 
