@@ -40,8 +40,8 @@ const config = withSentryConfig(
 
     // Suppresses source map uploading logs during build
     silent: true,
-    org: "t3gg",
-    project: "t3-gallery-video",
+    org: "tre1-techniq",
+    project: "tre1-techniq-sentry-io",
   },
   // @ts-ignore
   {
