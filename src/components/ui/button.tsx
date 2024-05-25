@@ -4,6 +4,8 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "~/lib/utils"
 
+const neoClasses = "w-full rounded-md px-3.5 py-5 border  relative z-10 text-lg font-semibold";
+
 const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
@@ -13,17 +15,20 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+          "border-1 border-secondary bg-neutral-900 hover:bg-accent hover:text-accent-foreground",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "bg-secondary text-md font-normal text-secondary-foreground hover:bg-[#16d7d6] hover:text-neutral-900 py-5",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        neo: cn(neoClasses, "bg-[#16d7d6] hover:border hover:border-[#16d7d6]  hover:bg-secondary text-neutral-900 border-[#16d7d6]"),
+        neoSuccess: cn(neoClasses, "bg-green-500 text-neutral-900 border-green-700"),
+        neoDanger: cn(neoClasses, "bg-red-700 text-neutral-900 border border-red-500")
       },
       size: {
-        default: "h-10 px-4 py-2",
+        default: "h-14 px-4 py-5",
         sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
+        lg: "h-14 rounded-full px-3.5 py-5",
+        icon: "h-12 w-12",
       },
     },
     defaultVariants: {

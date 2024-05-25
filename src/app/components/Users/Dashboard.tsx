@@ -19,7 +19,7 @@ const Dashboard = () => {
 
   return (
     <div className="w-full text-center">
-      <h1>Dashboard</h1>
+      <h2 className='text-3xl font-bold'>Dashboard</h2>
       <p>Hello, {user.firstName}! Welcome to your Dashboard.</p>
       {/* You can render additional user information here */}
     </div>
