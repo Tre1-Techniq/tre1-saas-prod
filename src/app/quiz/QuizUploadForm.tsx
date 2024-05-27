@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation";
 
 const QuizUploadForm = () => {
-    const [document, setDocument] = useState<Blob | File | null | undefined>(null);
+    const [document, setDocument] = useState<File | null | undefined>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
     const router = useRouter();
@@ -23,7 +23,7 @@ const QuizUploadForm = () => {
 
         const formData = new FormData();
 
-        formData.append("pdf", document as Blob);
+        formData.append("pdf", document as File);
 
         try {
             const res = await fetch("/api/quiz/generate", {
@@ -36,6 +36,7 @@ const QuizUploadForm = () => {
                 const quizId = data.quizId;
 
                 router.push(`/quiz/${quizId}`);
+                console.log("Quiz Generated Successfully!");
             };
         } catch (e) {
             console.log("Error While Generating Quiz!", e);
@@ -49,7 +50,7 @@ const QuizUploadForm = () => {
             {isLoading ? <p>Loading...</p> : <form className="w-full" onSubmit={handleSubmit}>
                 <label className="bg-secondary w-full flex h-24 rounded-md border-2 border-dashed border-primary relative" htmlFor="quiz-pdf">
                     <div className="absolute inset-0 m-auto flex justify-center items-center text-[#848484]">
-                        {document && 'name' in document ? (document as File).name : "Drag and Drop Your File or Click HERE"}
+                        {document && document?.name ? document.name : "Drag and Drop Your File or Click HERE"}
                     </div>
                     <input type="file" id="quiz-pdf" className="relative block w-full h-full z-50 opacity-0" onChange={(e) => setDocument(e?.target?.files?.[0])}></input>
                 </label>

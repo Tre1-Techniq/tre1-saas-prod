@@ -3,24 +3,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { ChatOpenAI } from "@langchain/openai";
 import { HumanMessage } from "@langchain/core/messages";
 
-import { WebPDFLoader } from "../../quiz-upload/WebPDFLoader";
+import { WebPDFLoader } from "~/app/quiz-upload/WebPDFLoader";
 import { JsonOutputFunctionsParser } from "langchain/output_parsers";
 
 import saveQuiz from "./saveToDb";
 
 // Define the type of the result object
 type Result = {
-    quiz?: {
-        name: string;
-        description: string;
-        questions: {
-            questionText: string;
-            answers: {
-                answerText: string;
-                isCorrect: boolean;
-            }[];
-        }[];
-    };
+    quiz?: any; // Replace 'any' with the actual type of the 'quiz' property
     // Add other properties if needed
 };
 
@@ -31,7 +21,7 @@ export async function POST(req: NextRequest) {
     try {
         const pdfLoader = new WebPDFLoader(document as Blob, {
             parsedItemSeparator: " ",
-            splitPages: false,
+            splitPages:false,
         });
 
         const docs = await pdfLoader.load();
@@ -39,7 +29,7 @@ export async function POST(req: NextRequest) {
         const selectedDocuments = docs.filter((doc) => doc.pageContent !== undefined);
         const texts = selectedDocuments.map((doc) => doc.pageContent);
 
-        const prompt = "given the text which is a summary of the document, generate a quiz based on the text. Return json only that contains a quizMasterAi object with fields: name, description, questions. The questions is an array of objects with fields: questionText, answers. The answers is an array of objects with fields: answerText, isCorrect."
+        const prompt = "given the text which is a summary of the document, generate a quiz based on the text. Return json only that contains a quizzes object with fields: name, description, questions. The questions is an array of objects with fields: questionText, answers. The answers is an array of objects with fields: answerText, isCorrect."
 
         if (!process.env.OPENAI_API_KEY) {
             return NextResponse.json({ error: "OpenAI API Key Not Provided!" }, { status: 200 });
@@ -107,15 +97,15 @@ export async function POST(req: NextRequest) {
 
         const result: Result = await runnable.invoke([message]);
 
-    console.log("RESULT: ", result);
+        console.log("RESULT: ", result);
 
-    if (result.quiz) {
-        const { quizId } = await saveQuiz(result.quiz);
-        return NextResponse.json({ quizId }, { status: 200 });
+        if (result.quiz) {
+            const { quizId } = await saveQuiz(result.quiz);
+            return NextResponse.json({ quizId }, { status: 200 });
         } else {
             return NextResponse.json({ error: "Quiz data not found in the result" }, { status: 200 });
         }
     } catch (e: any) {
-        return NextResponse.json({ error: e.message }, { status: 200 });
+        return NextResponse.json({ error: e.message }, { status: 500 });
     }
 }

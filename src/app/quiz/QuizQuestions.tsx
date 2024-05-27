@@ -10,6 +10,7 @@ import { ChevronLeft, X } from 'lucide-react';
 import ResultCard from './ResultCard';
 import { questionAnswers, questions as DbQuestions, quizzes } from "~/server/db/schema";
 import { InferSelectModel } from 'drizzle-orm';
+import { useRouter } from "next/navigation";
 
 type Answer = InferSelectModel<typeof questionAnswers>;
 type Question = InferSelectModel<typeof DbQuestions> & { answers: Answer[]};
@@ -24,9 +25,9 @@ export default function QuizQuestions(props: Props) {
     const [started, setStarted] = useState<boolean>(false);
     const [currentQuestion, setCurrentQuestion] = useState<number>(0);
     const [score, setScore] = useState<number>(0);
-    const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
-    const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+    const [userAnswers, setUserAnswers] = useState<{questionId: number, answerId: number}[]>([]);
     const [submitted, setSubmitted] = useState<boolean>(false);
+    const router = useRouter();
 
     const handleNext = () => {
         if (!started) {
@@ -41,22 +42,38 @@ export default function QuizQuestions(props: Props) {
             return;
         }
 
-        setSelectedAnswer(null);
-        setIsCorrect(null);
     }
 
-    const handleAnswer = (answer: Answer) => {
-        setSelectedAnswer(answer?.id);
-        const isCurrentCorrect = answer.isCorrect;
+    const handleAnswer = (answer: Answer, questionId: number) => {
 
-        if (isCurrentCorrect) {
-            setScore(score + 1);
+    const newUserAnswersArr = [...userAnswers, {
+        answerId: answer.id,
+        questionId
+    }];
+
+    setUserAnswers(newUserAnswersArr);
+
+    const isCurrentCorrect = answer.isCorrect;
+
+    if (isCurrentCorrect) {
+        setScore(score + 1);
+    }
+
+    }
+
+    const handlePressPrev = () => {
+        if (currentQuestion !== 0) {
+            setCurrentQuestion(prevCurrentQuestion => prevCurrentQuestion - 1)
         }
-
-        setIsCorrect(isCurrentCorrect);
     }
 
+    const handleExit = () => {
+        router.push('/dashboard');
+    }
+ 
     const scorePercentage: number = Math.round((score / questions.length) * 100);
+    const selectedAnswer: number | null | undefined = userAnswers.find((item) => item.questionId === questions[currentQuestion]?.id)?.answerId;
+    const isCorrect: boolean | null | undefined = questions[currentQuestion]?.answers.findIndex((answer) => answer.id === selectedAnswer ) ? questions[currentQuestion]?.answers.find((answer) => answer.id === selectedAnswer)?.isCorrect : null;
 
     if (submitted) {
         return (
@@ -70,10 +87,10 @@ export default function QuizQuestions(props: Props) {
 
     return (
         <div className='flex flex-col justify-center flex-1'>
-            <main className='flex justify-center flex-1'>
+            <main className='flex justify-center flex-1 mt-14'>
                 {!started ? 
                     <div className='w-1/2'>
-                        <h2 className='text-5xl font-bold pb-6'>Your Quiz is Ready</h2>
+                        <h2 className='text-5xl font-bold pb-6 text-center'>Your Quiz is Ready</h2>
                         <div className="flex justify-center">
                             <Image 
                                 src={QuizMasterAi}
@@ -87,9 +104,9 @@ export default function QuizQuestions(props: Props) {
                     <div className="w-1/3">
                         <div className='position-sticky top-0 z-10 pb-12 shadow-md w-full'>
                             <header className='grid grid-cols-[auto,1fr,auto] grid-flow-col items-center justify-between py2 gap-2'>
-                                <Button size={"icon"} variant={"outline"}><ChevronLeft /></Button>
+                                <Button size={"icon"} variant={"outline"} onClick={handlePressPrev}><ChevronLeft /></Button>
                                 <ProgressBar value={(currentQuestion / questions.length) * 100} />
-                                <Button size={"icon"} variant={"outline"}><X /></Button>
+                                <Button size={"icon"} variant={"outline"} onClick={handleExit}><X /></Button>
                             </header>
                         </div>
                         <h2 className='text-3xl font-bold'>{questions[currentQuestion]?.questionText}</h2>
@@ -97,7 +114,7 @@ export default function QuizQuestions(props: Props) {
                             {questions[currentQuestion]?.answers.map(answer => {
                                 const variant = selectedAnswer === answer.id ? (answer.isCorrect ? "neoSuccess" : "neoDanger") : "secondary";
                                 return (
-                                    <Button key={answer.id} variant={variant} onClick={() => handleAnswer(answer)}>{answer.answerText}</Button>
+                                    <Button key={answer.id} disabled={!!selectedAnswer} variant={variant} onClick={() => handleAnswer(answer, questions[currentQuestion].id)}><p className='whitespace-normal'>{answer.answerText}</p></Button>
                                 )
                             })}
                         </div>
@@ -105,7 +122,7 @@ export default function QuizQuestions(props: Props) {
                 )}
             </main>
             <div className="flex flex-col justify-center flex-1 items-center">
-                <footer className='bg-neutral-900 grid grid-flow-row grid-cols-1 footer pb-0 px-0 relative mb-0 w-1/3 mt-8'>
+                <footer className='bg-neutral-900 grid grid-flow-row grid-cols-1 footer px-0 py-0 relative w-1/3 mb-12 mt-0'>
                     <ResultCard 
                         isCorrect={isCorrect} 
                         correctAnswer={questions[currentQuestion]?.answers.find(answer => answer.isCorrect === true)?.answerText || ""} 

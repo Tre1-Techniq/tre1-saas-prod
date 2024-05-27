@@ -98,15 +98,15 @@ const Offcanvas = ({ openNav, setOpenNav }: HeaderProps) => {
                   <button
                     aria-label="dropdown menu"
                     className={`navbar__dropdown-label ${isSubMenuButton(
-                      "services"
+                      "e-learning"
                     )}`}
-                    onClick={() => handleSubmenu("services")}
+                    onClick={() => handleSubmenu("e-learning")}
                   >
                     E-Learning
                   </button>
-                  <ul className={`navbar__sub-menu ${isSubMenuOpen("services")}`}>
+                  <ul className={`navbar__sub-menu ${isSubMenuOpen("e-learning")}`}>
                     <li className="navbar__item nav-fade">
-                      <Link onClick={closeNav} href="/quiz-master-ai">AI Quizzes</Link>
+                      <Link onClick={closeNav} href="/quiz">AI Quizzes</Link>
                     </li>
                     <li className="navbar__item nav-fade">
                       <Link onClick={closeNav} href="/dashboard">Online Courses</Link>

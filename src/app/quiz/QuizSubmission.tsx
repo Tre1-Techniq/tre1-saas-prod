@@ -18,8 +18,13 @@ const QuizSubmission = (props: Props) => {
                 <h2 className="text-5xl text-[#ff9000]font-bold">Quiz Completed!</h2>
                 <p>You Scored: <span className="text-2xl font-bold text-primary px-4">{scorePercentage}%</span></p>
                 {scorePercentage === 100 ? 
-                    <div className="flex justify-center h-full">
-                        <Image src={WellDone} alt="Graduation Robot Image" />
+                    <div className="flex justify-center">
+                        <Image 
+                            src={WellDone} 
+                            alt="Graduation Robot Image"
+                            width={500}
+                            height={400}
+                    />
                     </div>
                     :
                     <>

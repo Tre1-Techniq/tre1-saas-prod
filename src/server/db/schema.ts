@@ -1,17 +1,18 @@
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
-import { relations, sql } from "drizzle-orm";
 import {
-  boolean,
-  index,
-  integer,
-  pgTableCreator,
-  serial,
-  text,
   timestamp,
-  varchar,
+  pgTable,
+  text,
+  primaryKey,
+  integer,
+  serial,
+  boolean,
+  pgEnum,
 } from "drizzle-orm/pg-core";
+// import type { AdapterAccount } from "@auth/core/adapters";
+import { relations } from "drizzle-orm";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -19,28 +20,9 @@ import {
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = pgTableCreator((name) => `tre1-saas-t3_${name}`);
+// export const createTable = pgTableCreator((name) => `tre1-saas-t3_${name}`);
 
-export const images = createTable(
-  "image",
-  {
-    id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }).notNull(),
-    url: varchar("url", { length: 1024 }).notNull(),
-
-    userId: varchar("userId", { length: 256 }).notNull(),
-
-    createdAt: timestamp("created_at")
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updatedAt"),
-  },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.name),
-  })
-);
-
-export const quizzes = createTable(
+export const quizzes = pgTable(
   "quizzes",
   {
     id: serial("id").primaryKey(),
@@ -55,7 +37,7 @@ export const quizzesRelations = relations(quizzes, ({many, one}) => ({
   questions: many(questions),
 }));
 
-export const questions = createTable(
+export const questions = pgTable(
   "questions",
   {
     id: serial("id").primaryKey(),
@@ -72,7 +54,7 @@ export const questionRelations = relations(questions, ({one, many}) => ({
   answers: many(questionAnswers),
 }));
 
-export const questionAnswers = createTable(
+export const questionAnswers = pgTable(
   "questionAnswers",
   {
     id: serial("id").primaryKey(),
