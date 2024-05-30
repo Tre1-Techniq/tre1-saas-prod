@@ -45,7 +45,7 @@ const QuizUploadForm = () => {
     }
 
     return (
-        <div className="w-full mt-12 py-8">
+        <div className="w-full mt-8 py-4">
             {isLoading ? <p>Loading...</p> : <form className="w-full" onSubmit={handleSubmit}>
                 <label className="bg-secondary w-full flex h-24 rounded-md border-2 border-dashed border-primary relative" htmlFor="quiz-pdf">
                     <div className="absolute inset-0 m-auto flex justify-center items-center text-[#848484]">

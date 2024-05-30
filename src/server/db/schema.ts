@@ -5,6 +5,7 @@ import {
   timestamp,
   pgTable,
   text,
+  varchar,
   primaryKey,
   integer,
   serial,
@@ -14,28 +15,45 @@ import {
 // import type { AdapterAccount } from "@auth/core/adapters";
 import { relations } from "drizzle-orm";
 
-/**
- * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
- * database instance for multiple projects.
- *
- * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
- */
-// export const createTable = pgTableCreator((name) => `tre1-saas-t3_${name}`);
 
-export const quizzes = pgTable(
+// Define the users table
+export const users = pgTable('users', {
+  id: serial('id').primaryKey(),
+  clerkUserId: text('id').notNull().primaryKey(),
+  email: text('primary_email_address').notNull(),
+  phone: text("primary_phone_number"),
+  avatar: text("image_url"),
+  createdAt: timestamp('created_at').defaultNow(),
+  firstName: text('first_name'),
+  lastName: text('last_name'),
+  updatedAt: timestamp('updated_at'),
+  app_metadata: text('unsafe_metadata'),
+  userHasImage: boolean('has_image'),
+  user_metadata: text('public_metadata'),
+});
+
+export const usersRelations = relations(users, ({ many }) => ({
+  quizzes: many(quizzes),
+}));
+
+// QuizMaster AI Tables
+export const quizzes = pgTable( 
   "quizzes",
   {
     id: serial("id").primaryKey(),
     name: text("name"),
     description: text("description"),
-    userId: text("userId"),
-
+    userId: text("userId").references(() => users.clerkUserId),
   }
 );
 
 export const quizzesRelations = relations(quizzes, ({many, one}) => ({
   questions: many(questions),
 }));
+
+export const sessions = pgTable("session", {
+  expires: timestamp("expires", { mode: "date"}).notNull(),
+});
 
 export const questions = pgTable(
   "questions",

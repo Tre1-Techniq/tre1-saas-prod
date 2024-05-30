@@ -14,7 +14,7 @@ const QuizSubmission = (props: Props) => {
 
     return (
         <div className='flex flex-col flex-1'>
-            <main className='flex flex-col gap-4 items-center flex-1'>
+            <main className='flex flex-col gap-4 items-center flex-1 mt-12'>
                 <h2 className="text-5xl text-[#ff9000]font-bold">Quiz Completed!</h2>
                 <p>You Scored: <span className="text-2xl font-bold text-primary px-4">{scorePercentage}%</span></p>
                 {scorePercentage === 100 ? 
@@ -33,8 +33,8 @@ const QuizSubmission = (props: Props) => {
                             <Bar percentage={100 - scorePercentage} color="red" />
                         </div>
                         <div className="flex flex-row gap-8">
-                            <p className="px-2"><span className="font-xl font-bold text-[#ff9000]">{score}</span>{" "}Correct</p>
-                            <p className="px-2"><span className="font-xl font-bold text-[#ff9000]">{totalQuestions - score}</span>{" "} Incorrect</p>
+                            <p className="px-0"><span className="px-2 font-xl font-bold text-[#ff9000]">{score}</span>{" "}Correct</p>
+                            <p className="px-0"><span className="px-2 font-xl font-bold text-[#ff9000]">{totalQuestions - score}</span>{" "} Incorrect</p>
                         </div>
                     </>
                 }

@@ -144,7 +144,7 @@ export default function QuizMasterUI(props: Props) {
         <div className='flex flex-col justify-center flex-1'>
             <main className='flex justify-center flex-1'>
                 {!started ? 
-                    <div className='w-1/2'>
+                    <div className='px:6 lg:px-12 w-full lg:w-2/3 xl:w-1/2'>
                         <h2 className='text-5xl font-bold pb-6'>Your Quiz is Ready</h2>
                         <div className="flex justify-center">
                             <Image 
@@ -154,9 +154,9 @@ export default function QuizMasterUI(props: Props) {
                                 height={400}
                             />
                         </div>
-                        <p className='text-center text-sm text-[#c8c8c8] pt-4'>I prepared a custom quiz for you, based on the information in the document that you uploaded. Press the button below to get started!</p>
+                        <p className='text-center text-sm text-[#c8c8c8] py-4 px-12 w-3/4'>I prepared a custom quiz for you, based on the information in the document that you uploaded. Press the button below to get started!</p>
                     </div> : (
-                    <div className="w-1/3">
+                    <div className="hidden lg:flex ">
                         <div className='position-sticky top-0 z-10 pb-12 shadow-md w-full'>
                             <header className='grid grid-cols-[auto,1fr,auto] grid-flow-col items-center justify-between py2 gap-2'>
                                 <Button size={"icon"} variant={"outline"}><ChevronLeft /></Button>

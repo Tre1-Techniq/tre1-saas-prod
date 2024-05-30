@@ -49,7 +49,6 @@
     h5 {
       text-transform: capitalize;
       font-weight: 600;
-      color: var(--primary-color) !important;
     }
   }
 
@@ -58,9 +57,9 @@
     h5 {
       text-transform: capitalize;
       font-weight: 600;
-      color: var(--secondary-color) !important;
+      color: var(--secondary-color);
       &:hover {
-        color: var(--white) !important;
+        color: var(--white);
       }
     }
   }

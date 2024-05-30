@@ -20,7 +20,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 60px;
+    gap: 50px;
   }
   .container {
     margin: 0 auto;
@@ -252,10 +252,10 @@
 
 // secondary navbar
 .secondary--navbar {
-  padding: 30px 0px;
+  padding: 20px 0px;
 
   .open-offcanvas-nav {
-    @include box(80px);
+    @include box(60px);
     border: 1px solid var(--secondary-color);
     position: relative;
     &::before {

@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useEffect, useState } from 'react';
-import "@uploadthing/react/styles.css";
 
 // font awesome 6
 import '../../public/icons/font-awesome/css/all.css';
@@ -13,14 +12,9 @@ import '../styles/globals.css';
 
 
 import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from '@clerk/themes';
+import { dark, neobrutalism } from '@clerk/themes';
 
 import { Montserrat } from "next/font/google";
-// import NavBar from "./components/NavBar";
-import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
-import { extractRouterConfig } from "uploadthing/server";
-// import { ourFileRouter } from "./api/uploadthing/core";
-import { Toaster } from "~/components/ui/sonner";
 
 import Footer from '~/components/layout/footer/Footer';
 import Header from '~/components/layout/header/Header';
@@ -126,29 +120,21 @@ export default function RootLayout({
   return (
     <ClerkProvider
       appearance={{
-        baseTheme: dark
+        baseTheme: [dark, neobrutalism]
       }}
     >
       <html lang="en">
-        {/* <NextSSRPlugin
-          routerConfig={extractRouterConfig(ourFileRouter)}
-        /> */}
-        <body className="bg-neutral-950">
-          <div className="grid">
-            <Header openNav={openNav} handleNav={handleNav} setOpenNav={setOpenNav} />
-            <main className="bg-neutral-900">
-              <div>
-                {children}
-              </div>
-            </main>
+        <body className={`${montserrat.className} bg-neutral-950 py-0 flex flex-col`}>
+          <div><Header openNav={openNav} handleNav={handleNav} setOpenNav={setOpenNav} /></div>
+          <main className="bg-neutral-900">
             <div>
-              <Footer />
-              <ScrollProgressBtn />
+              {children}
             </div>
-            {modal}
+          </main>
+          <div >
+            <Footer />
+            <ScrollProgressBtn />
           </div>
-          <div id="modal-root" />
-          <Toaster />
         </body>
       </html>
   </ClerkProvider>

@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
         const selectedDocuments = docs.filter((doc) => doc.pageContent !== undefined);
         const texts = selectedDocuments.map((doc) => doc.pageContent);
 
-        const prompt = `Given the text which is a summary of the document, generate a quiz based on the text. Return JSON only that contains a quiz object with fields: name, description, questions. The questions is an array of objects with fields: questionText, answers. The answers is an array of objects with fields: answerText, isCorrect. Be sure to parse answers as nested objects of question and answerText as a nested object of answers. I also need the isCorrect field to be associated with each answerText, denoting if the answer is true or false.`;
+        const prompt = `Given the text which is a summary of the document, generate a quiz based on the text. Return JSON only that contains a quiz object with fields: name, description, questions. The questions is an array of objects with fields: questionText, answers. The answers is an array of objects with fields: answerText, isCorrect. Be sure to parse answers as nested objects of question and answerText as a nested object of answers. I also need the isCorrect field to be associated with each answerText, denoting if the answer is true or false. Be sure to randomize the index of the answerText with a boolean result of true. It will be too easy for users to guess the correct answers if all of the true AnsweText is on the same index for each question.`;
 
         if (!process.env.OPENAI_API_KEY) {
             return NextResponse.json({ error: "OpenAI API Key Not Provided!" }, { status: 500 });

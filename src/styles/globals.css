@@ -92,3 +92,48 @@ dialog:modal {
     transform: rotate(360deg);
   }
 }
+
+/* Clerk Auth */
+.cl-logoBox {
+  height: 75px;
+}
+
+img.cl-logoImage {
+  box-shadow: rgb(0, 0, 0) 7px 7px 0px;
+  border: 2px solid rgb(0, 0, 0);
+}
+
+img.cl-logoImage:hover {
+  border: 1px solid #16d7d6;
+  box-shadow: rgb(0, 0, 0) 3px 3px 0px;
+  border: 1px solid rgb(0, 0, 0);
+}
+
+.cl-card {
+  background-color: #222222;
+}
+.cl-formButtonPrimary {
+  font-size: 14px;
+  text-transform: none;
+  background-color: #ff9000;
+}
+
+.cl-footer {
+  background: #313131;
+}
+
+.cl-footerActionText {
+  color: #747474;
+}
+
+.cl-footerActionLink {
+  color: #ff9000;
+}
+
+.cl-footerActionLink:hover {
+  color: #16d7d6;
+  text-decoration: none;
+  line-height: 1.38462;
+  border-bottom: 3px solid;
+
+}
