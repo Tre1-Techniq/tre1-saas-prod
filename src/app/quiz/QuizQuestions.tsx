@@ -85,10 +85,10 @@ export default function QuizQuestions(props: Props) {
     }
 
     return (
-        <div className='flex flex-col justify-center flex-1'>
-            <main className='flex justify-center flex-1 mt-14'>
-                {!started ?
-                    <div className='w-1/2'>
+        <div className='min-h-screen flex flex-col justify-center flex-1'>
+            <main className='flex justify-center flex-1'>
+                {!started ? (
+                    <div className='w-full sm:w-1/2'>
                         <h2 className='text-5xl font-bold pb-6 text-center'>Your Quiz is Ready</h2>
                         <div className="flex justify-center">
                             <Image
@@ -98,38 +98,57 @@ export default function QuizQuestions(props: Props) {
                                 height={400}
                             />
                         </div>
-                        <p className='text-center text-sm text-[#c8c8c8] pt-4'>I prepared a custom quiz for you, based on the information in the document that you uploaded. Press the button below to get started!</p>
-                    </div> : (
-                        <div className="w-1/2">
+                        <p className='text-left text-sm text-subdued pt-4'>I prepared a custom quiz for you, based on the information in the document that you uploaded. Press the button below to get started!</p>
+                    </div> ) : (
+                        <div className="w-full sm:w-3/4">
                             <div className='position-sticky top-0 z-10 pb-4 shadow-md w-full'>
                                 <header className='grid grid-cols-[auto,1fr,auto] grid-flow-col items-center justify-between py2 gap-2'>
                                     <Button size={"icon"} variant={"outline"} onClick={handlePressPrev}><ChevronLeft /></Button>
                                     <ProgressBar value={(currentQuestion / questions.length) * 100} />
                                     <Button size={"icon"} variant={"outline"} onClick={handleExit}><X /></Button>
                                 </header>
+                                <div className='w-full flex justify-center'>
+                                    <p>Question <span>{currentQuestion + 1}</span> of <span>{questions.length}</span></p>
+                                </div>
                             </div>
-                            <h2 className='text-3xl font-bold'>{questions[currentQuestion]?.questionText}</h2>
-                            <div className='grid grid-cols-1 gap-6 mt-6'>
-                                {questions[currentQuestion]?.answers.map(answer => {
-                                    const variant = selectedAnswer === answer.id ? (answer.isCorrect ? "neoSuccess" : "neoDanger") : "secondary";
-                                    return (
-                                        <Button key={answer.id} disabled={!!selectedAnswer} variant={variant} onClick={() => handleAnswer(answer, questions[currentQuestion].id)}><p className='whitespace-normal'>{answer.answerText}</p></Button>
-                                    )
-                                })}
+                            <div className="flex flex-wrap justify-start sm:justify-center w-full py-4 sm:py-6">
+                                <div className="w-full">
+                                    <h2 className='text-3xl font-bold'>{questions[currentQuestion]?.questionText}</h2>
+                                    <div className='grid grid-cols-1 gap-6 mt-6'>
+                                        {questions[currentQuestion]?.answers.map(answer => {
+                                            const variant = selectedAnswer === answer.id ? (answer.isCorrect ? "neoSuccess" : "neoDanger") : "outline";
+                                            return (
+                                                <Button key={answer.id} disabled={!!selectedAnswer} variant={variant} onClick={() => handleAnswer(answer, questions[currentQuestion].id)}><p className='whitespace-normal'>{answer.answerText}</p></Button>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )}
             </main>
+            <div className="w-full flex justify-center items-center">
+                {!started ? (
+                <div>
+                    <p>QuizMasterAI Prompt</p>
+                </div>
+                ) : (
+                <div>
+                    <div className='py-4'>
+                        <ResultCard
+                            isCorrect={isCorrect}
+                            correctAnswer={questions[currentQuestion]?.answers.find(answer => answer.isCorrect === true)?.answerText || ""}
+                        />
+                    </div>
+                </div>
+                )}
+            </div>
             <div className="flex flex-col justify-center flex-1 items-center">
-                <footer className='bg-neutral-900 grid grid-flow-row grid-cols-1 footer px-0 py-0 relative w-1/3 my-8'>
-                    <ResultCard
-                        isCorrect={isCorrect}
-                        correctAnswer={questions[currentQuestion]?.answers.find(answer => answer.isCorrect === true)?.answerText || ""}
-                    />
-                    <Button variant={"neo"} size={"lg"} className='w-full' onClick={handleNext}>
+                <div className='bg-neutral-900 grid grid-flow-row grid-cols-1 mb-24 px-0 relative w-3/4'>
+                    <Button variant="neo" size={"lg"} className='w-full' onClick={handleNext}>
                         {!started ? 'Get Started' : (currentQuestion === questions.length - 1 && selectedAnswer !== null) ? 'Submit' : 'Next'}
                     </Button>
-                </footer>
+                </div>
             </div>
         </div>
     )

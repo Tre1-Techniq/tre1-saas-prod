@@ -30,7 +30,7 @@ function ResultCard(props: Props) {
       "text-center",
       "text-lg",
       "font-semibold",
-      "bg-secondary"
+      "bg-secondary",
     )}>{text}</div>
   )
 }

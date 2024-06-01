@@ -39,33 +39,36 @@
   }
 
   .dark {
-    --background: 0, 0%, 83%;
-    --foreground: 0, 0%, 31%;
+    --background: 0, 0%, 9%;
+    --foreground: 0, 0%, 88%;
 
-    --card: 0, 0%, 83%;
-    --card-foreground: 0, 0%, 31%;
+    --card: 0, 0%, 18%;
+    --card-foreground: 0, 0%, 88%;
 
-    --popover: 0, 0%, 83%;
-    --popover-foreground: 0, 0%, 31%;
+    --popover: 0, 0%, 24%;
+    --popover-foreground: 0, 0%, 88%;
+
+    --subdued: 0, 0%, 16%;
+    --subdued-foreground: 0, 0%, 88%;
 
     --primary: 179.69, 81.43%, 46.47%;
-    --primary-foreground: 0, 0%, 83%;
+    --primary-foreground: 0, 0%, 15%;
 
-    --secondary: 0, 0%, 16%;
-    --secondary-foreground: 0, 0%, 31%;
+    --secondary: 240, 6%, 13%;
+    --secondary-foreground: 179.69, 81.43%, 46.47%;
 
-    --muted: 0, 0%, 16%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0, 0%, 18%;
+    --muted-foreground: 0, 0%, 9%;
 
-    --accent: 0, 0%, 16%;
-    --accent-foreground: 0, 0%, 31%;
+    --accent: 33.88, 100%, 50%;
+    --accent-foreground: 0, 0%, 9%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0, 0%, 31%;
+    --destructive: 0, 100%, 50.2%;
+    --destructive-foreground: 0, 0%, 95%;
 
-    --border: 0, 0%, 16%;
-    --input: 0, 0%, 16%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 0, 0%, 25%;
+    --input: 0, 0%, 25%;
+    --ring: 0, 0%, 25%;
   }
 }
 
@@ -130,10 +133,30 @@ img.cl-logoImage:hover {
   color: #ff9000;
 }
 
+.cl-avatarBox {
+  height: 3rem;
+  width: 3rem;
+}
+
+.cl-navbarButton {
+  color: #ff9000;
+}
+
+.cl-navbarButton:hover {
+  color: #16d7d6;
+}
+
+.cl-menuButton, .cl-profileSectionPrimaryButton {
+  color: #16d7d6;
+}
+
+.cl-profileSectionPrimaryButton:hover, .cl-menuButton__connectedAccounts:hover {
+  color:  #ff9000;;
+}
+
 .cl-footerActionLink:hover {
   color: #16d7d6;
   text-decoration: none;
   line-height: 1.38462;
   border-bottom: 3px solid;
-
 }

@@ -32,11 +32,16 @@ const Header = ({ openNav, handleNav, setOpenNav }: HeaderProps) => {
               </SignedOut>
               <SignedIn>
                 <div>
-                  <UserButton />
+                  <UserButton
+                    afterSignOutUrl="/tre1-u"
+                    userProfileMode="navigation"
+                    userProfileUrl="/profile"
+                    showName={false}
+                  />
                 </div>
-                <div className="text-sm">
+                {/* <div className="text-sm">
                   {user?.firstName}
-                </div>
+                </div> */}
               </SignedIn>
             </div>
           </nav>

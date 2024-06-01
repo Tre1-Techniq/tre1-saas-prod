@@ -1,31 +1,10 @@
-import { SignedIn, SignedOut } from "@clerk/nextjs";
-import TutorialsHomeBanner from "~/components/containers/home/TutorialsHomeBanner";
 
-import Image from "next/image";
-import Link from "next/link";
+export default async function Tre1HomePage() {
 
-// import 'tailwindcss/tailwind.css';
-import '../styles/globals.css';
-
-export const metadata = {
-  title: "Tre1 Techniq E-Learning",
-  description: "Browse our library of E-Learning materials. AI-Generated Quizzes, Online Courses and Downloadable Templates. Innovative educational products that drive tangible business outcomes and help you achieve your goals.",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
-};
-
-export default async function HomePage() {
   return (
-    <section className="page-section">
-      <SignedOut>
-        <div className="page-body">
-          <TutorialsHomeBanner />
-        </div>
-      </SignedOut>
-      <SignedIn>
-        <div className="page-body">
-          <TutorialsHomeBanner />
-        </div>
-      </SignedIn>
-    </section>
+      <div className="h-full w-full text-center font-lg mt-12">
+          <h2 className='text-3xl font-bold'>Tre1 Techniq Home Page</h2>
+          <p>Welcome to Tre1 Techniq</p>
+      </div>
   );
 }

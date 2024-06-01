@@ -15,15 +15,15 @@ async function Images() {
 
 export default async function HomePage() {
   return (
-    <main className="">
+    <div className="">
       <SignedOut>
-        <div className="h-full w-full text-center text-2xl">
+        <div className="min-h-screen w-full text-center text-2xl">
           Please sign in above
         </div>
       </SignedOut>
       <SignedIn>
         <Images />
       </SignedIn>
-    </main>
+    </div>
   );
 }

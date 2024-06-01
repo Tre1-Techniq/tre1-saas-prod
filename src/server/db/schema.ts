@@ -1,6 +1,8 @@
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
+import { drizzle } from 'drizzle-orm/vercel-postgres';
+import { sql } from "@vercel/postgres";
 import {
   timestamp,
   pgTable,
@@ -14,6 +16,9 @@ import {
 } from "drizzle-orm/pg-core";
 // import type { AdapterAccount } from "@auth/core/adapters";
 import { relations } from "drizzle-orm";
+
+// Use this object to send drizzle queries to your DB
+export const db = drizzle(sql);
 
 
 // Define the users table
@@ -46,6 +51,11 @@ export const quizzes = pgTable(
     userId: text("userId").references(() => users.clerkUserId),
   }
 );
+
+export const getQuizzes = async () => {
+  const quizzesResult = await db.select().from(quizzes);
+  console.log('QUIZZEZ: ', quizzesResult);
+};
 
 export const quizzesRelations = relations(quizzes, ({many, one}) => ({
   questions: many(questions),

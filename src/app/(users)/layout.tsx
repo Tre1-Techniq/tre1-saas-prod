@@ -1,16 +1,10 @@
-import SidebarDashboard from "~/components/layout/sidebar/SidebarDashboard";
 
-export default function UsersLayout({
+export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <div className="items-start justify-between">
-      <SidebarDashboard />
-      <main className="bg-neutral-900 w-full min-h-screen">
-          {children}
-      </main>
-    </div>
-  );
+      <div>{children}</div>
+  )
 }
