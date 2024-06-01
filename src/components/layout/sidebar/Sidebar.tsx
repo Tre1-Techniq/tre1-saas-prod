@@ -5,7 +5,7 @@ import { SidebarDesktop } from "./SidebarDesktop";
 import { SidebarItems } from "../../../types";
 import { SidebarButton } from "./SidebarButton";
 import Link from "next/link";
-import { useMediaQuery } from "useHooks-ts";
+import { useMediaQuery } from "usehooks-ts";
 import { SidebarMobile } from "./SidebarMobile";
 
 
